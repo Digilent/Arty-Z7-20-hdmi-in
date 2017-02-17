@@ -132,13 +132,11 @@ if {[llength $bd_list] != 0} {
   if { ![get_property "is_locked" $file_obj] } {
     set_property "synth_checkpoint_mode" "Hierarchical" $file_obj
   }
- 
+
   # Generate the wrapper 
   set design_name [get_bd_designs]
-  add_files -norecurse [make_wrapper -files [get_files $design_name.bd] -top -force]
-
-  set obj [get_filesets sources_1]
-  set_property "top" "${design_name}_wrapper" $obj
+  make_wrapper -files [get_files $design_name.bd] -top -force -quiet -import
+  
 }
 
 set sdk_dir $origin_dir/sdk
