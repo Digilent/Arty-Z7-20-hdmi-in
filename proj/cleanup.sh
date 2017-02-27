@@ -11,5 +11,6 @@ find . -mindepth 1 -type d -exec rm -rf {} +
 find . -type f ! -name 'cleanup.sh' \
                ! -name 'cleanup.cmd' \
                ! -name 'create_project.tcl' \
+               ! -name 'create_system.tcl' \
                ! -name '.gitignore' \
                -exec rm -rf {} +

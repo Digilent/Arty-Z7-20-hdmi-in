@@ -9,6 +9,7 @@ attrib -R .\* /S
 
 rem mark read only those we wish to keep
 attrib +R .\create_project.tcl
+attrib +R .\create_system.tcl
 attrib +R .\cleanup.sh
 attrib +R .\cleanup.cmd
 attrib +R .\.gitignore
