@@ -67,9 +67,9 @@ repo/cache/**
 proj/*
 # except this file and project generators
 !proj/create_project.tcl
-!proj/create_system.tcl
 !proj/cleanup.cmd
 !proj/cleanup.sh
+!proj/release.py
 
 # keep the empty folders
 !/**/.keep
