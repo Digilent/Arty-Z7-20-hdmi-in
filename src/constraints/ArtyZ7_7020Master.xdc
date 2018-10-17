@@ -79,8 +79,8 @@ set_property -dict { PACKAGE_PIN T20   IOSTANDARD TMDS_33  } [get_ports { TMDS_d
 set_property -dict { PACKAGE_PIN P20   IOSTANDARD TMDS_33  } [get_ports { TMDS_data_n[2]}]; #IO_L14N_T2_SRCC_34 Sch=HDMI_RX_D2_N
 set_property -dict { PACKAGE_PIN N20   IOSTANDARD TMDS_33  } [get_ports { TMDS_data_p[2]}]; #IO_L14P_T2_SRCC_34 Sch=HDMI_RX_D2_P
 set_property -dict { PACKAGE_PIN T19   IOSTANDARD LVCMOS33 } [get_ports { hdmi_hpd_tri_o[0] }]; #IO_25_34 Sch=HDMI_RX_HPD
-set_property -dict { PACKAGE_PIN U14   IOSTANDARD LVCMOS33 } [get_ports { ddc_scl_io }]; #IO_L11P_T1_SRCC_34 Sch=HDMI_RX_SCL
-set_property -dict { PACKAGE_PIN U15   IOSTANDARD LVCMOS33 } [get_ports { ddc_sda_io }]; #IO_L11N_T1_SRCC_34 Sch=HDMI_RX_SDA
+set_property -dict { PACKAGE_PIN U14   IOSTANDARD LVCMOS33 } [get_ports { DDC_scl_io }]; #IO_L11P_T1_SRCC_34 Sch=HDMI_RX_SCL
+set_property -dict { PACKAGE_PIN U15   IOSTANDARD LVCMOS33 } [get_ports { DDC_sda_io }]; #IO_L11N_T1_SRCC_34 Sch=HDMI_RX_SDA
 
 ##HDMI TX Signals
 

@@ -5,5 +5,5 @@ proc set_digilent_project_properties {proj_name} {
 	set_property "board_part" "digilentinc.com:arty-z7-20:part0:1.0" $project_obj
 	set_property "default_lib" "xil_defaultlib" $project_obj
 	set_property "simulator_language" "Mixed" $project_obj
-	set_property "target_language" "Verilog" $project_obj
+	set_property "target_language" "VHDL" $project_obj
 }
