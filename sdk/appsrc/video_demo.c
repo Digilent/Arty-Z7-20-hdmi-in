@@ -380,7 +380,7 @@ void DemoCRMenu()
 	xil_printf("*                Arty Z7 HDMI In Demo            *\n\r");
 	xil_printf("**************************************************\n\r");
 	xil_printf("*Current Resolution: %28s*\n\r", dispCtrl.vMode.label);
-	printf("*Pixel Clock Freq. (MHz): %23.3f*\n\r", dispCtrl.pxlFreq);
+	xil_printf("*Pixel Clock Freq. (MHz): %23.3f*\n\r", dispCtrl.pxlFreq); // program was stopped due to this line, change to xil_printf from printf
 	xil_printf("**************************************************\n\r");
 	xil_printf("\n\r");
 	xil_printf("1 - %s\n\r", VMODE_640x480.label);
