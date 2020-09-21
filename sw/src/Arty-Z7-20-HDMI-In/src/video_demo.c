@@ -42,7 +42,7 @@
 /*
  * XPAR redefines
  */
-#define DYNCLK_BASEADDR XPAR_AXI_DYNCLK_0_BASEADDR
+#define DYNCLK_BASEADDR XPAR_AXI_DYNCLK_0_S_AXI_LITE_BASEADDR
 #define VGA_VDMA_ID XPAR_AXIVDMA_0_DEVICE_ID
 #define DISP_VTC_ID XPAR_VTC_0_DEVICE_ID
 #define VID_VTC_ID XPAR_VTC_1_DEVICE_ID
@@ -68,7 +68,7 @@ char fRefresh; //flag used to trigger a refresh of the Menu on video detect
 /*
  * Framebuffers for video data
  */
-u8 frameBuf[DISPLAY_NUM_FRAMES][DEMO_MAX_FRAME];
+u8 frameBuf[DISPLAY_NUM_FRAMES][DEMO_MAX_FRAME] __attribute__((aligned(0x20)));
 u8 *pFrames[DISPLAY_NUM_FRAMES]; //array of pointers to the frame buffers
 
 /*
@@ -281,7 +281,7 @@ void DemoPrintMenu()
 	xil_printf("*                Arty Z7 HDMI In Demo            *\n\r");
 	xil_printf("**************************************************\n\r");
 	xil_printf("*Display Resolution: %28s*\n\r", dispCtrl.vMode.label);
-	printf("*Display Pixel Clock Freq. (MHz): %15.3f*\n\r", dispCtrl.pxlFreq);
+	xil_printf("*Display Pixel Clock Freq. (MHz): %11d.%03d*\n\r", (int)dispCtrl.pxlFreq, (((int)dispCtrl.pxlFreq*1000)%1000));
 	xil_printf("*Display Frame Index: %27d*\n\r", dispCtrl.curFrame);
 	if (videoCapt.state == VIDEO_DISCONNECTED) xil_printf("*Video Capture Resolution: %22s*\n\r", "!HDMI UNPLUGGED!");
 	else xil_printf("*Video Capture Resolution: %17dx%-4d*\n\r", videoCapt.timing.HActiveVideo, videoCapt.timing.VActiveVideo);
@@ -380,7 +380,7 @@ void DemoCRMenu()
 	xil_printf("*                Arty Z7 HDMI In Demo            *\n\r");
 	xil_printf("**************************************************\n\r");
 	xil_printf("*Current Resolution: %28s*\n\r", dispCtrl.vMode.label);
-	printf("*Pixel Clock Freq. (MHz): %23.3f*\n\r", dispCtrl.pxlFreq);
+	xil_printf("*Display Pixel Clock Freq. (MHz): %11d.%03d*\n\r", (int)dispCtrl.pxlFreq, (((int)dispCtrl.pxlFreq*1000)%1000));
 	xil_printf("**************************************************\n\r");
 	xil_printf("\n\r");
 	xil_printf("1 - %s\n\r", VMODE_640x480.label);
@@ -391,6 +391,27 @@ void DemoCRMenu()
 	xil_printf("q - Quit (don't change resolution)\n\r");
 	xil_printf("\n\r");
 	xil_printf("Select a new resolution:");
+}
+
+int DemoGetInactiveFrame(DisplayCtrl *DispCtrlPtr, VideoCapture *VideoCaptPtr)
+{
+	int i;
+	for (i=1; i<DISPLAY_NUM_FRAMES; i++)
+	{
+		if (DispCtrlPtr->curFrame == i && DispCtrlPtr->state == DISPLAY_RUNNING)
+		{
+			continue;
+		}
+		else if (VideoCaptPtr->curFrame == i && VideoCaptPtr->state == VIDEO_STREAMING)
+		{
+			continue;
+		}
+		else
+		{
+			return i;
+		}
+	}
+	xil_printf("Unreachable error state reached. All buffers are in use.\r\n");
 }
 
 void DemoInvertFrame(u8 *srcFrame, u8 *destFrame, u32 width, u32 height, u32 stride)
