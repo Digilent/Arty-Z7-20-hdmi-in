@@ -53,7 +53,7 @@ To later make changes to the Vivado project and update the hardware platform in 
 2. Open Vivado 2020.1.
 3. Open the XPR project file, found at \<archive extracted location\>/hw/hw.xpr, included in the extracted hardware release in Vivado 2020.1.
 4. Make any desired modifications and regenerate the bitstream.
-5. Use the File > Export > Export Hardware option to export a **Fixed**, **Post-synthesis** hardware platform (XSA) file to a memorable location.
+5. Use the File > Export > Export Hardware option to export a hardware platform (XSA) file to a memorable location. Specify the **Fixed** and **Include bitstream** options, as this is a baremetal project and will be used to program the board through Vitis.
 6. In Vitis, right click on the *Platform* project, select **Update Hardware Specification**, then navigate to and select the exported XSA for import.
 7. Rebuild and relaunch the application.
 
